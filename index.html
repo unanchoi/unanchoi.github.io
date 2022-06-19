@@ -71,6 +71,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-class" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/19/class/" class="article-date">
+  <time class="dt-published" datetime="2022-06-19T09:46:41.000Z" itemprop="datePublished">2022-06-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/06/19/class/">class</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>“””클래스 기본 개념”””<br>class UserInfo:</p>
+<pre><code>def __init__(self,name): 
+    #초기화 메소드. 객체가 호출이 될 때, 자동으로 호출이 될 여러가지 상황을 정해줌.
+    self.name = name
+def user_info_p(self):
+    print(&quot;name : &quot;, self.name)
+</code></pre>
+<p>user1 &#x3D; UserInfo(“Kim”)<br>print(user1.name)<br>user1.user_info_p()<br>print(id(user1))<br>print(user1.<strong>dict</strong>) #dict 네임 스페이스 출력</p>
+<p>#예제 2</p>
+<p>class SelfTest:<br>    def function1():</p>
+<pre><code>    print(&#39;function1 called&#39;)
+def function2(self):
+    print(&#39;function2 callsd&#39;)
+</code></pre>
+<p>self_test &#x3D; SelfTest()<br>SelfTest.function1()</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://unanchoi.github.io/2022/06/19/class/" data-id="cl4l4k3rd0000eh9fa5es4f6s" data-title="class" class="article-share-link">공유</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Lombok" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/06/18/Lombok/" class="article-date">
@@ -251,7 +306,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">태그</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/" rel="tag">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/" rel="tag">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
     </div>
   </div>
 
@@ -261,7 +316,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">태그 클라우드</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/java/" style="font-size: 10px;">java</a>
+      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
     </div>
   </div>
 
@@ -281,6 +336,10 @@
     <h3 class="widget-title">최근 포스트</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2022/06/19/class/">class</a>
+          </li>
         
           <li>
             <a href="/2022/06/18/Lombok/">Lombok</a>

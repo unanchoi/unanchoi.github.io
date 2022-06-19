@@ -4,14 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>아카이브: 2022/6 | Unan&#39;s Blog</title>
+  <title>class | Unan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Unan&#39;s Blog">
-<meta property="og:url" content="https://unanchoi.github.io/archives/2022/06/index.html">
+  <meta name="description" content="“””클래스 기본 개념”””class UserInfo: def __init__(self,name):      #초기화 메소드. 객체가 호출이 될 때, 자동으로 호출이 될 여러가지 상황을 정해줌.     self.name &#x3D; name def user_info_p(self):     print(&quot;name : &quot;, self.name)  user">
+<meta property="og:type" content="article">
+<meta property="og:title" content="class">
+<meta property="og:url" content="https://unanchoi.github.io/2022/06/19/class/index.html">
 <meta property="og:site_name" content="Unan&#39;s Blog">
+<meta property="og:description" content="“””클래스 기본 개념”””class UserInfo: def __init__(self,name):      #초기화 메소드. 객체가 호출이 될 때, 자동으로 호출이 될 여러가지 상황을 정해줌.     self.name &#x3D; name def user_info_p(self):     print(&quot;name : &quot;, self.name)  user">
 <meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2022-06-19T09:46:41.000Z">
+<meta property="article:modified_time" content="2022-06-19T09:46:54.959Z">
 <meta property="article:author" content="unanchoi">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Unan's Blog" type="application/atom+xml">
@@ -69,96 +74,69 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/06/19/class/" class="archive-article-date">
-  <time class="dt-published" datetime="2022-06-19T09:46:41.000Z" itemprop="datePublished">6월 19</time>
+        <section id="main"><article id="post-class" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/19/class/" class="article-date">
+  <time class="dt-published" datetime="2022-06-19T09:46:41.000Z" itemprop="datePublished">2022-06-19</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/06/19/class/">class</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      class
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/06/18/Lombok/" class="archive-article-date">
-  <time class="dt-published" datetime="2022-06-17T15:26:51.000Z" itemprop="datePublished">6월 18</time>
-</a>
+    <div class="e-content article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/06/18/Lombok/">Lombok</a>
-    </h1>
-  
+        <p>“””클래스 기본 개념”””<br>class UserInfo:</p>
+<pre><code>def __init__(self,name): 
+    #초기화 메소드. 객체가 호출이 될 때, 자동으로 호출이 될 여러가지 상황을 정해줌.
+    self.name = name
+def user_info_p(self):
+    print(&quot;name : &quot;, self.name)
+</code></pre>
+<p>user1 &#x3D; UserInfo(“Kim”)<br>print(user1.name)<br>user1.user_info_p()<br>print(id(user1))<br>print(user1.<strong>dict</strong>) #dict 네임 스페이스 출력</p>
+<p>#예제 2</p>
+<p>class SelfTest:<br>    def function1():</p>
+<pre><code>    print(&#39;function1 called&#39;)
+def function2(self):
+    print(&#39;function2 callsd&#39;)
+</code></pre>
+<p>self_test &#x3D; SelfTest()<br>SelfTest.function1()</p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/06/17/%EC%A3%BC%EC%84%9D/" class="archive-article-date">
-  <time class="dt-published" datetime="2022-06-16T15:10:43.000Z" itemprop="datePublished">6월 17</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/06/17/%EC%A3%BC%EC%84%9D/">주석</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/06/16/restful/" class="archive-article-date">
-  <time class="dt-published" datetime="2022-06-16T13:14:35.000Z" itemprop="datePublished">6월 16</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://unanchoi.github.io/2022/06/19/class/" data-id="cl4l4k3rd0000eh9fa5es4f6s" data-title="class" class="article-share-link">공유</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/06/16/restful/">RESTful</a>
-    </h1>
-  
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/06/18/Lombok/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">이전</strong>
+      <div class="article-nav-title">Lombok</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
 </section>
