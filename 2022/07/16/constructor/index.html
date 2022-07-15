@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>constructor | Unan&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="생성자란? 인스턴스가 생성될  때, 호출되는 인스턴스 초기화 메서드이다.  기능 인스턴스 초기화(인스턴스 변수들을 초기화) 인스턴스 생성 시에 실행되어야 할 작업을 위해 사용.  특징 Return 값이 없다. ⇒ method 이지만, 항상 return 값이 없기 때문에, void를 생략할 수 있다. 생성자의 이름은 class의 이름과 같다. (*) 연산자">
+<meta property="og:type" content="article">
+<meta property="og:title" content="constructor">
+<meta property="og:url" content="https://unanchoi.github.io/2022/07/16/constructor/index.html">
+<meta property="og:site_name" content="Unan&#39;s Blog">
+<meta property="og:description" content="생성자란? 인스턴스가 생성될  때, 호출되는 인스턴스 초기화 메서드이다.  기능 인스턴스 초기화(인스턴스 변수들을 초기화) 인스턴스 생성 시에 실행되어야 할 작업을 위해 사용.  특징 Return 값이 없다. ⇒ method 이지만, 항상 return 값이 없기 때문에, void를 생략할 수 있다. 생성자의 이름은 class의 이름과 같다. (*) 연산자">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2022-07-15T16:31:17.000Z">
+<meta property="article:modified_time" content="2022-07-15T16:31:25.076Z">
+<meta property="article:author" content="unanchoi">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Unan's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Unan&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="검색"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="검색"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://unanchoi.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-constructor" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/07/16/constructor/" class="article-date">
+  <time class="dt-published" datetime="2022-07-15T16:31:17.000Z" itemprop="datePublished">2022-07-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      constructor
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="생성자란"><a href="#생성자란" class="headerlink" title="생성자란?"></a>생성자란?</h1><ul>
+<li>인스턴스가 생성될  때, 호출되는 인스턴스 초기화 메서드이다.</li>
+</ul>
+<h2 id="기능"><a href="#기능" class="headerlink" title="기능"></a>기능</h2><ol>
+<li>인스턴스 초기화(인스턴스 변수들을 초기화)</li>
+<li>인스턴스 생성 시에 실행되어야 할 작업을 위해 사용.</li>
+</ol>
+<h2 id="특징"><a href="#특징" class="headerlink" title="특징"></a>특징</h2><ol>
+<li>Return 값이 없다. ⇒ method 이지만, 항상 return 값이 없기 때문에, void를 생략할 수 있다.</li>
+<li>생성자의 이름은 class의 이름과 같다.</li>
+<li>(*) 연산자 new가 인스턴스를 생성하는 것. 생성자는 인스턴스를 생성하는 것이 아니다.</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Book</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String writer;</span><br><span class="line">	<span class="keyword">private</span> String content;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> page;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 매개변수가 있는 생성자</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Book</span><span class="params">(String writer, String content, <span class="type">int</span> page)</span> &#123;</span><br><span class="line">	<span class="built_in">this</span>.writer = writer;</span><br><span class="line">	<span class="built_in">this</span>.content = content;</span><br><span class="line">	<span class="built_in">this</span>.page = page;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 매개 변수가 없는 생성자</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Book</span><span class="params">()</span> &#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Book peterRabbit = new Book();</code> </p>
+<ul>
+<li>위 코드의 new로 인해, 메모리(heap)에 Book 인스턴스가 생성된다.</li>
+<li>생성자 Book()이 호출되어 수행된다.</li>
+<li>연산자 new의 결과로, 생성된 Book instance 주소가 반환되어 <code>peterRabbit</code> 에 저장된다.</li>
+<li>만약, class의 생성자를 정의하지 않으면 Compiler는 <code>기본 생성자</code> 를 추가하여 compile 한다.</li>
+</ul>
+<h2 id="매개변수가-있는-생성자"><a href="#매개변수가-있는-생성자" class="headerlink" title="매개변수가 있는 생성자"></a>매개변수가 있는 생성자</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Post</span> &#123;</span><br><span class="line">	String writer;</span><br><span class="line">	String content;</span><br><span class="line"></span><br><span class="line">  Post() &#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	Post(String w, String c) &#123;</span><br><span class="line">		writer = w;</span><br><span class="line">		content = c;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="생성자에서-다른-생성자-호출하기"><a href="#생성자에서-다른-생성자-호출하기" class="headerlink" title="생성자에서 다른 생성자 호출하기"></a>생성자에서 다른 생성자 호출하기</h3><ul>
+<li><p>생성자의 이름으로 클래스이름 대신 this를 사용한다.</p>
+</li>
+<li><p>한 생성자에서 다른 생성자를 호출할 때는 반드시 첫 줄에서만 호출이 가능하다</p>
+</li>
+<li><p>this : 인스턴스 자기 자신을 가리키는 참조변수. 인스턴스의 주소가 저장되어 있다.</p>
+</li>
+</ul>
+<p>→ 모든 인스턴스  메서드에 지역변수로 숨겨진 채로 존재한다.</p>
+<ul>
+<li>this(), this(매개변수) : 생성자. 같은 클래스의 다른 생성자를 호출 할 때 사용한다.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Post</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> String writer;</span><br><span class="line">    <span class="keyword">protected</span> String title;</span><br><span class="line">    <span class="keyword">protected</span> String content;</span><br><span class="line"></span><br><span class="line">    Post() &#123;</span><br><span class="line">        <span class="built_in">this</span>(<span class="string">&quot;unan&quot;</span>, <span class="string">&quot;test&quot;</span>, <span class="string">&quot;test post 입니다.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Post</span><span class="params">(String writer, String title, String content)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.writer = writer;</span><br><span class="line">        <span class="built_in">this</span>.title = title;</span><br><span class="line">        <span class="built_in">this</span>.content = content;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PostTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Post</span> <span class="variable">post1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Post</span>();</span><br><span class="line">        System.out.println(<span class="string">&quot;post1 정보&quot;</span> + post1.title + post1.content + post1.writer);</span><br><span class="line"></span><br><span class="line">        <span class="type">Post</span> <span class="variable">post2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Post</span>(<span class="string">&quot;unan2&quot;</span>, <span class="string">&quot;test2&quot;</span>, <span class="string">&quot;test post2&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;post2 정보&quot;</span> + post2.title + post2.content + post2.writer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>실행결과</p>
+<ul>
+<li>unan test post test</li>
+<li>unan2 test post2 test2</li>
+</ul>
+</li>
+<li><p>‘this’는 참조 변수로 인스턴스 자신을 가리킨다. 참조변수를 통해 인스턴스의 멤버에 접근할 수 있는 것처럼 ‘this’로 인스턴스 변수에 접근할 수 있다.</p>
+</li>
+<li><p>static method(class method)에서는 this를 사용할 수 없다. static method는 인스턴스의 생성 없이, 호출될 수 있기 때문이다.</p>
+</li>
+</ul>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li>JAVA의 정석</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://unanchoi.github.io/2022/07/16/constructor/" data-id="cl5mogkym0000vd9fh8gq8chl" data-title="constructor" class="article-share-link">공유</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/07/09/uri/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">이전</strong>
+      <div class="article-nav-title">uri</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">태그</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/" rel="tag">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/" rel="tag">spring</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">태그 클라우드</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CS/" style="font-size: 20px;">CS</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">아카이브</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">7월 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">6월 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">최근 포스트</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/16/constructor/">constructor</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/09/uri/">uri</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/03/spring-swagger/">spring-swagger</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/28/git/">git</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/network/">network</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 unanchoi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
