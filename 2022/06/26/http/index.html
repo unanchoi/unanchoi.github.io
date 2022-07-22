@@ -6,15 +6,15 @@
   
   <title>http | Unan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="HTTP 통신이란">
+  <meta name="description" content="HTTP 메세지에 모든 것을 전송 HTML, TEXT IMAGE, 음성, 영상 파일 … JSON, XML (API) 거의 모든 형태의 데이터 전송 가능 서버간에 데이터를 주고 받을 때도 대부분 HTTP 사용  server의 response는 status code와 함께 Response 수십개 존재하지만 그 중 중요한것. 기반 프로토콜 TCP : HTTP&amp;#">
 <meta property="og:type" content="article">
 <meta property="og:title" content="http">
 <meta property="og:url" content="https://unanchoi.github.io/2022/06/26/http/index.html">
 <meta property="og:site_name" content="Unan&#39;s Blog">
-<meta property="og:description" content="HTTP 통신이란">
+<meta property="og:description" content="HTTP 메세지에 모든 것을 전송 HTML, TEXT IMAGE, 음성, 영상 파일 … JSON, XML (API) 거의 모든 형태의 데이터 전송 가능 서버간에 데이터를 주고 받을 때도 대부분 HTTP 사용  server의 response는 status code와 함께 Response 수십개 존재하지만 그 중 중요한것. 기반 프로토콜 TCP : HTTP&amp;#">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2022-06-26T14:44:00.000Z">
-<meta property="article:modified_time" content="2022-06-26T14:58:23.375Z">
+<meta property="article:modified_time" content="2022-07-22T10:22:52.771Z">
 <meta property="article:author" content="unanchoi">
 <meta property="article:tag" content="CS">
 <meta name="twitter:card" content="summary">
@@ -96,7 +96,861 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="HTTP-통신이란"><a href="#HTTP-통신이란" class="headerlink" title="HTTP 통신이란"></a>HTTP 통신이란</h2>
+        <h2 id="HTTP-메세지에-모든-것을-전송"><a href="#HTTP-메세지에-모든-것을-전송" class="headerlink" title="HTTP 메세지에 모든 것을 전송"></a>HTTP 메세지에 모든 것을 전송</h2><ul>
+<li>HTML, TEXT</li>
+<li>IMAGE, 음성, 영상 파일 …</li>
+<li>JSON, XML (API)</li>
+<li>거의 모든 형태의 데이터 전송 가능</li>
+<li>서버간에 데이터를 주고 받을 때도 대부분 HTTP 사용</li>
+</ul>
+<p>server의 response는 status code와 함께 Response</p>
+<p>수십개 존재하지만 그 중 중요한것.</p>
+<h2 id="기반-프로토콜"><a href="#기반-프로토콜" class="headerlink" title="기반 프로토콜"></a>기반 프로토콜</h2><ul>
+<li><p><code>TCP</code> : HTTP&#x2F;1.1, HTTP&#x2F;2</p>
+</li>
+<li><p><code>UDP</code> : HTTP&#x2F;3 (QUIC라는 계층 위에서 동작한다.)</p>
+</li>
+<li><p>현재 HTTP&#x2F;1.1 주로 사용 ⇒ 헤더에 많은 메타 데이터 들이 들어가 크기가 크다.</p>
+<ul>
+<li>HTTP&#x2F;2, HTTP&#x2F;3 은 성능 개선의 차원으로 이해</li>
+<li>HTTP&#x2F;2 SPDY 프로토콜에서 파생된 HTTP&#x2F;1.1보다 지연 시간을 줄이고, 응답 시간을 더 빠르게 하고, 멀티플렉싱, 헤더 압축, 서버 푸시, 요청의 우선순위 처리를 지원하는 프로토콜.</li>
+<li>HTTP&#x2F;2는 클라이언트가 요청 없이 서버가 바로 리소스를 푸시할 수 있다.</li>
+</ul>
+</li>
+</ul>
+<h1 id="특징"><a href="#특징" class="headerlink" title="특징"></a>특징</h1><p>… 단순하다!</p>
+<h2 id="1-Client-Server-구조"><a href="#1-Client-Server-구조" class="headerlink" title="1. Client-Server 구조"></a>1. Client-Server 구조</h2><ul>
+<li>Request, Response 구조</li>
+<li><code>client</code>는 <code>server</code>에 요청을 보내고, 응답을 대기</li>
+<li><code>server</code>가 요청에 대한 결과를 만들어서 응답</li>
+<li><code>server</code>에는 데이터와 비즈니스로직에 집중, <code>client</code>는 UX, UI에 집중 → 서로 독립적으로 진화 가능하다.</li>
+</ul>
+<h2 id="2-비연결성-Connectionless"><a href="#2-비연결성-Connectionless" class="headerlink" title="2. 비연결성(Connectionless)"></a>2. 비연결성(Connectionless)</h2><ul>
+<li><p>client가 request를 보내고, server가 response를 하면 그 연결을 끊어버리는 특징. 즉 연결을 유지하지 않는다.</p>
+</li>
+<li><p>HTTP 요청에 대한 응답은 일반적으로 초 단위 이하의 빠른속도이다.</p>
+</li>
+<li><p>1시간 동안 수천명이 서비스를 사용해도 실제 서버에서 동시에 처리하는 요청은 수십개 이하로 매우 작다. (웹 브라우저에서 연속해서 검색 버튼을 누르지는 않는다.)</p>
+</li>
+<li><p>서버 자원을 효율적으로 사용가능하다.</p>
+</li>
+<li><p><strong>한계</strong></p>
+</li>
+<li><p>TCP&#x2F;IP 연결을 새로 맺어야 함. → 3 way handshake 시간 추가</p>
+<ul>
+<li>웹 브라우저로 사이트를 요청하면, HTML 뿐만 아니라 static file등 수많은 자원이 다운로드</li>
+<li>현재는 HTTP 지속연결(Persistent Connections)로 문제 해결</li>
+<li>HTTP&#x2F;2, HTTP&#x2F;3 에서 더 많은 최적화</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-무상태-프로토콜-Stateless"><a href="#3-무상태-프로토콜-Stateless" class="headerlink" title="3. 무상태 프로토콜(Stateless)"></a>3. 무상태 프로토콜(Stateless)</h2><ul>
+<li>통신이 끝나면 상태를 유지하지 않는 속성, 연결을 끊는 순간 상태정보는 유지하지 하지 않는 특성.</li>
+<li>최대한 stateless하게 server를 설계하는 것이 좋다.</li>
+<li><code>Server</code>가 <code>Client</code>의 상태를 보존하지 않는다.</li>
+<li><code>stateful</code> 할 경우, 서버에 문제가 생겼을 때, 처음 부터 요청을 다시 보내야 하는 문제가 생긴다. → 중간에 다른 서버로 바뀌면 안된다.</li>
+<li><code>stateless</code>의 경우 서버 한 곳에 문제가 생기면, 중계서버에 의해 다른 서버로 연결 가능하다.</li>
+</ul>
+<p>⇒ scale out (수평 확장)에 유리하다. (무한한 증설 가능)</p>
+<ul>
+<li>모든 것을 무상태로 설계할수 있는 경우도 있고, 없는 경우도 있다.</li>
+</ul>
+<p>예) 로그인</p>
+<p>→ 상태 유지는 최소한만 사용한다.(만약 쿠키와 세션이 없다면, 사용자는 페이지 이동을 할 때 마다 로그인을 해야할 수도 있다.</p>
+<h3 id="…-서버-개발자들이-어려워하는-업무"><a href="#…-서버-개발자들이-어려워하는-업무" class="headerlink" title="… 서버 개발자들이 어려워하는 업무"></a>… 서버 개발자들이 어려워하는 업무</h3><ul>
+<li>정말 같은 시간에 딱 맞추어 들어오는 대용량 트래픽</li>
+<li>Message를 이용하여 통신</li>
+</ul>
+<h1 id="HTTP-message의-구조"><a href="#HTTP-message의-구조" class="headerlink" title="HTTP message의 구조"></a>HTTP message의 구조</h1><p>start-line 시작라인</p>
+<p>header (헤더)</p>
+<p>empty line (CRLF)</p>
+<p>message body</p>
+<h1 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h1><p>예시)</p>
+<p>GET &#x2F;search?q&#x3D;hello&amp;hl&#x3D;ko HTTP&#x2F;1.1</p>
+<p>HOST: <a target="_blank" rel="noopener" href="http://www.google.com/">www.google.com</a></p>
+<h1 id="Response"><a href="#Response" class="headerlink" title="Response"></a>Response</h1><p>예시)</p>
+<p>HTTP&#x2F;1.1 200 OK</p>
+<p>Content-Type : text&#x2F;html</p>
+<html>
+
+<body> … </body>
+
+</html>
+
+<h2 id="구조별-특징"><a href="#구조별-특징" class="headerlink" title="구조별 특징"></a>구조별 특징</h2><h3 id="1-start-line"><a href="#1-start-line" class="headerlink" title="1. start-line"></a>1. start-line</h3><ul>
+<li><code>request-line</code> 과 <code>status-line</code>이 들어감.</li>
+<li>request-line &#x3D; <code>method</code> SP(공백) <code>request-target</code> SP <code>HTTP-version</code> CRLF(엔터)<ul>
+<li>HTTP method (GET)</li>
+<li>요청 대상 (&#x2F;search?q&#x3D;hello&amp;hl&#x3D;ko)</li>
+<li>HTTP Version (HTTP&#x2F;1.1)</li>
+</ul>
+</li>
+<li>status-line &#x3D; <code>HTTP-version</code> SP <code>status-code</code> SP <code>reason-phrase</code> CRLF<ul>
+<li>HTTP Version (HTTP&#x2F;1.1)</li>
+<li>status-code (200)</li>
+<li>reason-phrase(OK) : 사람이 이해할 수 있는 짧은 상태 코드 설명 글</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-Header"><a href="#2-Header" class="headerlink" title="2. Header"></a>2. Header</h3><ul>
+<li><p>header-field &#x3D; field-name “:” OWS field-value OWS (OWS: 띄어쓰기 허용)</p>
+</li>
+<li><p>field-name은 대소문자 구분 없음</p>
+</li>
+<li><p>용도</p>
+<ul>
+<li>HTTP 전송에 필요한 모든 부가정보</li>
+<li>표준 헤더가 너무 많음</li>
+<li>필요시 임의의 헤더 추가 가능</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-Message-Body"><a href="#3-Message-Body" class="headerlink" title="3. Message Body"></a>3. Message Body</h3><ul>
+<li>실제 전송할 데이터</li>
+<li>HTML 문서, 이미지, 영상, JSON 등등 byte로 표현할 수 있는 모든 데이터 전송 가능</li>
+</ul>
+<h1 id="HTTP-Method"><a href="#HTTP-Method" class="headerlink" title="HTTP Method"></a>HTTP Method</h1><h2 id="특징-1"><a href="#특징-1" class="headerlink" title="특징"></a>특징</h2><h3 id="1-safe"><a href="#1-safe" class="headerlink" title="1. safe"></a>1. safe</h3><ul>
+<li>호출해도 리소스를 변경하지 않는다. → <code>GET</code></li>
+</ul>
+<h3 id="2-멱등-idempotent"><a href="#2-멱등-idempotent" class="headerlink" title="2. 멱등(idempotent)"></a>2. 멱등(idempotent)</h3><p><strong>서버에게 동일한 요청을 여러 번 전송하더라도 동일한 응답이 돌아와야 한다는 성질</strong></p>
+<ul>
+<li><p>몇번을 호출하든 항상 같은 값을 반환해야 한다.</p>
+</li>
+<li><p>멱등 method</p>
+<ul>
+<li><code>GET</code>: 몇 번을 조회하든, 같은 결과가 조회된다.</li>
+<li><code>PUT</code>: 결과를 대체한다. 따라서 같은 요청을 여러번 해도 최종 결과는 똑같다.</li>
+<li><code>DELETE</code>: 결과를 삭제한다. 같은 요청을 여러번 해도 삭제된 결과는 똑같다.</li>
+</ul>
+<p>  POST는 멱등성이 없다.(Non-idempotent)
+  </p>
+</li>
+<li><p>활용</p>
+<ul>
+<li>자동 복구 메커니즘</li>
+<li>서버가 timeout 등으로 정상 응답을 못 주었을 때, 클라이언트가 같은 요청을 해도 되는지에 대한 판단 근거</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-cacheability-→-응답-결과-resource를-캐시해서-사용해도-되는가"><a href="#3-cacheability-→-응답-결과-resource를-캐시해서-사용해도-되는가" class="headerlink" title="3. cacheability → 응답 결과 resource를 캐시해서 사용해도 되는가?"></a>3. cacheability → 응답 결과 resource를 캐시해서 사용해도 되는가?</h3><ul>
+<li><p>응답 결과 리소스를 캐시해서 사용해도 되는가?</p>
+</li>
+<li><p><code>GET</code>, <code>HEAD</code>, <code>POST</code>, <code>PATCH</code> 캐시 가능</p>
+</li>
+<li><p>실제로는 <code>GET</code>, <code>HEAD</code> 정도만 사용한다.</p>
+<p>  → POST, PATCH는 본문 내용까지 캐시 키로 고려해야하는데, 구현이 쉽지 않음.</p>
+</li>
+</ul>
+<h3 id="4-안전"><a href="#4-안전" class="headerlink" title="4. 안전"></a>4. 안전</h3><ul>
+<li>호출해도 리소스를 변경하지 않는 method를 <code>안전</code>(Safe)하다고 하다.</li>
+</ul>
+<h2 id="종류"><a href="#종류" class="headerlink" title="종류"></a>종류</h2><h3 id="GET"><a href="#GET" class="headerlink" title="GET"></a><code>GET</code></h3><ul>
+<li>Get은 서버로부터 정보를 조회하기 위한 메소드</li>
+<li>서버에 전달하고 싶은 데이터는 query(query parameter, query string)을 통해서 전달</li>
+<li>Idempotent</li>
+</ul>
+<h3 id="POST"><a href="#POST" class="headerlink" title="POST"></a><code>POST</code></h3><ul>
+<li>Message-body에 데이터를 담아 서버에 Data를 처리하도록 요청.</li>
+<li>리소스를 생성&#x2F;변경하기 위한 메소드. 리소스를 처리하는 모든 요청은 POST 요청으로 보낼 수 있다.</li>
+<li>Non-idempotent</li>
+</ul>
+<h3 id="사용유형"><a href="#사용유형" class="headerlink" title="사용유형"></a>사용유형</h3><ol>
+<li>주로 전달된 데이터로 신규 리소스 등록, 프로세스 처리에 사용한다.<ul>
+<li>서버가 식별하지 않은 새로운 리소스</li>
+</ul>
+</li>
+<li>요청 데이터 처리<ul>
+<li>데이터 생성, 변경 뿐만 아니라 프로세스를 처리 해야 하는 경우 ex) 주문에서 결제 완료 → 배달 시작 → 배달 완료와 같이 프로세스의 상태를 변경하는 경우.</li>
+<li>POST의 결과로 새로운 resource가 생성되지 않을 수도 있다.</li>
+</ul>
+</li>
+<li>다른 메서드로 처리하기 애매한 경우, POST를 쓸 수 있다.</li>
+</ol>
+<h3 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a><code>PUT</code></h3><ul>
+<li>리소스를 대체<ul>
+<li>리소스가 있으면 완전히 대체 → 수정 보다는 갈아치운다는 느낌</li>
+<li>리소스가 없으면 생성</li>
+<li>덮어쓰기 라고 생각</li>
+</ul>
+</li>
+<li>(중요!) 클라이언트가 리소스를 식별<ul>
+<li>클라이언트가 리소스 위치를 알고 URI 지정 → POST와의 차이. POST는 서버에서 리소스 위치 알고, 요청에 대한 로직을 진행 후에, 위치를 반환해줌.</li>
+</ul>
+</li>
+</ul>
+<h3 id="PATCH"><a href="#PATCH" class="headerlink" title="PATCH"></a><code>PATCH</code></h3><ul>
+<li>리소스 부분 변경</li>
+</ul>
+<h3 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a><code>DELETE</code></h3><ul>
+<li><p>리소스 제거</p>
+</li>
+<li><p>요청에 message-body가 없음.</p>
+</li>
+<li><p><code>HEAD</code> : GET과 동일하지만 메세지 부분을 제외하고, 상태 줄과 헤더만 반환. 따라서 HTTP method 응답 중에 body가 없는 요청.</p>
+</li>
+<li><p><code>OPTIONS</code> : 대상 리소스에 대한 통신 가능 옵션(메소드)을 설명 (주로 CORS에서 사용)</p>
+</li>
+<li><p><code>CONNECT</code> : 대상 자원으로 식별되는 서버에 대한 터널을 설정</p>
+</li>
+<li><p><code>TRACE</code> : 대상 리소스에 대한 경로를 따라 메시지 루프백 테스트를 수행</p>
+</li>
+</ul>
+<h1 id="상태코드-Status-Code"><a href="#상태코드-Status-Code" class="headerlink" title="상태코드(Status Code)"></a>상태코드(Status Code)</h1><h3 id="클라이언트가-보낸-요청의-처리-상태를-응답에서-알려주는-기능"><a href="#클라이언트가-보낸-요청의-처리-상태를-응답에서-알려주는-기능" class="headerlink" title="클라이언트가 보낸 요청의 처리 상태를 응답에서 알려주는 기능"></a>클라이언트가 보낸 요청의 처리 상태를 응답에서 알려주는 기능</h3><ul>
+<li>1xx(informational) : 요청이 수신되어 처리중</li>
+</ul>
+<h2 id="2xx-Successful-요청-정상-처리"><a href="#2xx-Successful-요청-정상-처리" class="headerlink" title="2xx(Successful) : 요청 정상 처리"></a>2xx(Successful) : 요청 정상 처리</h2><ul>
+<li><code>200</code> <strong>:</strong> Success</li>
+<li><code>201</code> : Create Success</li>
+<li><code>202</code> : Accepted : 요청이 접수되었으나 처리가 완료되지 않았음. ex) 배치 처리</li>
+<li><code>204</code> : No Content : 서버가 요청을 성공적으로 수행했지만, 응답 페이로드 본문에 보낼 데이터가 없음.<ul>
+<li>save 버튼의 결과로 아무 내용이 없어도 된다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="3xx-Redirection-요청을-완료하려면-추가-행동이-필요"><a href="#3xx-Redirection-요청을-완료하려면-추가-행동이-필요" class="headerlink" title="3xx(Redirection) : 요청을 완료하려면 추가 행동이 필요"></a>3xx(Redirection) : 요청을 완료하려면 추가 행동이 필요</h2><h3 id="Redirection"><a href="#Redirection" class="headerlink" title="Redirection"></a>Redirection</h3><ul>
+<li>영구 리다이렉션 - 특정 리소스의 URI가 영구적으로 이동<ul>
+<li>ex) &#x2F;members → users</li>
+<li>ex) &#x2F;event → &#x2F;new-event</li>
+</ul>
+</li>
+<li>일시 리다이렉션 - 일시적인 변경<ul>
+<li>주문 완료 후 주문 내역 화면으로 이동</li>
+<li>PRG: Post&#x2F;Redirect&#x2F;Get</li>
+</ul>
+</li>
+<li>특수 리다이렉션 - 결과 대신 캐시를 사용</li>
+</ul>
+<hr>
+<h3 id="영구적-리다이렉션"><a href="#영구적-리다이렉션" class="headerlink" title="영구적 리다이렉션"></a>영구적 리다이렉션</h3><ul>
+<li><code>301</code> : Redirect (Moved Permanently)<ul>
+<li>리다이렉트 시 요청 메소드가 GET으로 변하고, 본문이 제거될 수 있다.(MAY)</li>
+</ul>
+</li>
+<li><code>308</code> : Permanent Redirect<ul>
+<li>301과 기능은 같음</li>
+<li>리다이렉트시 요청 메서드와 본문 유지(처음 POST를 보내면 리다이렉트도 유지)</li>
+<li>실무에서는 301로 처리하는 경우가 많다. → URI가 바뀌면서, 제공해야 하는 data format이 바뀌기 때문이다.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="일시적-리다이렉션"><a href="#일시적-리다이렉션" class="headerlink" title="일시적 리다이렉션"></a>일시적 리다이렉션</h3><ul>
+<li><code>302</code> : Found<ul>
+<li>리다이렉트시 요청 메소드가 GET으로 변하고, 본문이 제거될 수 있음(MAY)</li>
+</ul>
+</li>
+<li><code>307</code> : Temporary Redirect<ul>
+<li>302와 기능은 같음.</li>
+<li>Redirect시 요청 메소드와 본문 유지(요청 메소드를 변경하면 안된다. MUST NOT)</li>
+</ul>
+</li>
+<li><code>303</code> : See Other<ul>
+<li>302와 기능은 같음.</li>
+<li>Redirect시 요청 메소드가 GET으로 변경되야 함.</li>
+</ul>
+</li>
+</ul>
+<p>(역사) 처음 302 스펙의 의도는 HTTP 메소드를 유지하는 것.</p>
+<p>그런데 웹 브라우저들이 대부분 GET으로 바꾸어 버림.</p>
+<p>그래서 모호한 302를 대신하는 명확한 307, 303이 등장함.</p>
+<p>현실</p>
+<ul>
+<li>307, 303을 권장하지만, 현실적으로 이미 많은 애플리케이션 라이브러리들이 <code>302</code>를 기본값으로 사용한다.</li>
+<li>자동 리다이렉션 시에 GET으로 변해도 되면, 그냥 302를 사용해도 크게 문제 없음.</li>
+</ul>
+<p><code>PRG: POST/Redirect/GET</code></p>
+<ul>
+<li>POST로 상품 주문후에 새로고침을 했는데, 만약 POST 요청이 들어가면 중복 주문이 될 수 있다.</li>
+</ul>
+<p>→ POST로 주문후에 주문 결과 화면을 GET 메서드로 Redirect</p>
+<p>→ 새로고침 해도 결과 화면을 GET으로 조회</p>
+<p>→ 중복 주문 대신, 결과 화면만 중복해서 GET 요청</p>
+<hr>
+<h3 id="기타-리다이렉션"><a href="#기타-리다이렉션" class="headerlink" title="기타 리다이렉션"></a>기타 리다이렉션</h3><ul>
+<li><code>300</code> : Multiple Choices: 안 쓴다.</li>
+<li><code>304</code> : Not Modified<ul>
+<li>캐시를 목적으로 사용</li>
+<li>클라이언트에게 리소스가 수정되지 않았음을 알려준다. 따라서 클라이언트는 로컬 PC에 저장된 캐시를 재사용한다.(캐시로 리다이렉트 한다.)</li>
+<li>304 응답은 응답에 메세지 바디를 포함하면 안된다. (로컬 캐시를 사용해야 하므로)</li>
+<li>조건부 GET, HEAD 요청시 사용</li>
+</ul>
+</li>
+</ul>
+<h2 id="4xx-Client-Error-클라이언트-오류-잘못된-문법등으로-서버가-요청을-수행할-수-없음"><a href="#4xx-Client-Error-클라이언트-오류-잘못된-문법등으로-서버가-요청을-수행할-수-없음" class="headerlink" title="4xx(Client Error) : 클라이언트 오류, 잘못된 문법등으로 서버가 요청을 수행할 수 없음."></a>4xx(Client Error) : 클라이언트 오류, 잘못된 문법등으로 서버가 요청을 수행할 수 없음.</h2><ul>
+<li><p>오류의 원인이 클라이언트에 있음.</p>
+</li>
+<li><p>재시도를 해도 실패한다. (5xx 은 서버의 문제이므로, 요청을 지속하면 성공할 수 있다.)</p>
+</li>
+<li><p><code>400</code> : Bad Request</p>
+<ul>
+<li>요청 구문, 메세지 등등 오류</li>
+<li>클라이언트는 요청 내용을 다시 검토하고, 보내야함.</li>
+<li>ex) 요청 파라미터, API 스펙이 안 맞을 때.</li>
+</ul>
+</li>
+<li><p><code>401</code> : Unauthorized</p>
+<ul>
+<li><p>인증되지 않음.</p>
+</li>
+<li><p>401 오류 발생시 응답에 WWW-Authenticate 헤더와 함께 인증방법을 설명</p>
+</li>
+<li><p>(참고)</p>
+<ul>
+<li>인증 : 본인이 누구인지 확인(로그인)</li>
+<li>인가 : 권한부여</li>
+<li>오류 메시지가 Unauthorized 이지만 인증되지 않음.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>403</code> : Forbbiden Error</p>
+<ul>
+<li>서버가 요청을 이해했지만, 승인을 거부함.</li>
+<li>주로 인증 자격 증명은 있지만, 접근 권한이 불충분한 경우.</li>
+</ul>
+</li>
+<li><p><code>404</code> : Not found error (요청을 보낸 곳의 resource가 존재하지 않는다.)</p>
+<ul>
+<li>요청 리소스가 서버에 없음.</li>
+<li>또는 클라이언트가 권한이 부족한 리소스에 접근할 때 해당 리소스를 숨기고 싶을 때</li>
+</ul>
+</li>
+<li><p><code>405</code></p>
+</li>
+</ul>
+<h2 id="5xx-Server-error-서버-오류-서버가-정상-요청을-처리하지-못함"><a href="#5xx-Server-error-서버-오류-서버가-정상-요청을-처리하지-못함" class="headerlink" title="5xx(Server error) : 서버 오류, 서버가 정상 요청을 처리하지 못함."></a>5xx(Server error) : 서버 오류, 서버가 정상 요청을 처리하지 못함.</h2><ul>
+<li><p>서버 내부 문제로 오류 발생</p>
+</li>
+<li><p>애매하면 500 error</p>
+</li>
+<li><p><code>500</code> : Internal Server Error</p>
+</li>
+<li><p><code>503</code> : Service Unavailable</p>
+<ul>
+<li>서버가 일시적인 과부하 또는 예정된 작업으로 잠시 요청을 처리할 수 없음.<ul>
+<li>Retry-After 헤더 필드로 얼마뒤에 복구되는지도 보낼수 있음.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>모르는 상태코드가 나온다고 하면?</p>
+</li>
+<li><p>client는 상위 상태코드로 해석해서 처리</p>
+</li>
+<li><p>미래에 새로운 상태 코드가 추가되어도 클라이언트를 변경하지 않아도 됨.</p>
+</li>
+</ul>
+<h1 id="Client에서-Server로-Data-전송"><a href="#Client에서-Server로-Data-전송" class="headerlink" title="Client에서 Server로 Data 전송"></a>Client에서 Server로 Data 전송</h1><h2 id="데이터-전달-방식"><a href="#데이터-전달-방식" class="headerlink" title="데이터 전달 방식"></a>데이터 전달 방식</h2><h3 id="1-쿼리-파라미터를-통한-데이터-전송"><a href="#1-쿼리-파라미터를-통한-데이터-전송" class="headerlink" title="1. 쿼리 파라미터를 통한 데이터 전송"></a>1. 쿼리 파라미터를 통한 데이터 전송</h3><ul>
+<li>GET</li>
+<li>주로 정렬 필터(검색어)</li>
+</ul>
+<h3 id="2-메시지-바디를-통한-데이터-전송"><a href="#2-메시지-바디를-통한-데이터-전송" class="headerlink" title="2. 메시지 바디를 통한 데이터 전송"></a>2. 메시지 바디를 통한 데이터 전송</h3><ul>
+<li>POST, PUT, PATCH</li>
+<li>회원 가입, 상품 주문, 리소스 등록, 리소스 변경</li>
+</ul>
+<h2 id="4가지-유형"><a href="#4가지-유형" class="headerlink" title="4가지 유형"></a>4가지 유형</h2><h3 id="1-정적-데이터-조회"><a href="#1-정적-데이터-조회" class="headerlink" title="1. 정적 데이터 조회"></a>1. 정적 데이터 조회</h3><ul>
+<li>GET</li>
+<li>이미지 정적 텍스트</li>
+<li>쿼리 파라미터 없이 리소스 경로로 단순하게 조회 가능</li>
+</ul>
+<h3 id="2-동적-데이터-조회-with-query-parameter"><a href="#2-동적-데이터-조회-with-query-parameter" class="headerlink" title="2. 동적 데이터 조회 with query parameter"></a>2. 동적 데이터 조회 with query parameter</h3><ul>
+<li>GET</li>
+<li>query parameter를 사용하여 데이터 전달</li>
+<li>게시판 목록에서 정렬 필터(검색어)</li>
+<li>조회 조건을 줄여주는 <code>필터</code>, 조회 결과를 <code>정렬</code>하는 정렬 조건에 주로 사용</li>
+</ul>
+<h3 id="3-HTML-Form-데이터-전송"><a href="#3-HTML-Form-데이터-전송" class="headerlink" title="3. HTML Form 데이터 전송"></a>3. HTML Form 데이터 전송</h3><ul>
+<li><p>HTML의 form 태그를 이용</p>
+</li>
+<li><p>GET, POST 2가지 요청</p>
+</li>
+<li><p>회원 가입, 상품주문, 데이터 변</p>
+</li>
+<li><p>쿼리 파라미터와 동일한 방식으로 데이터 전송</p>
+</li>
+<li><p>content-type : <code>application/x-www-form-urlencoded</code> 사용</p>
+<ul>
+<li>form의 내용을 메시지 바디를 통해서 전송(key&#x3D;value, 쿼리 파라미터 형식)</li>
+<li>전송 데이터를 url encoding 처리</li>
+<li>ex) abc 김 → abc%EA%B9%80</li>
+</ul>
+</li>
+<li><p>GET 전송도 가능</p>
+</li>
+<li><p>만약 파일과 같은 binary 데이터를 전송하고 싶을 때는, content-type : <code>multipart/form-data</code></p>
+</li>
+<li><p>다른 종류의 여러 파일과 폼의 내용 함께 전송 가능</p>
+</li>
+<li><p>HTML Form 전송은 <code>GET</code>, <code>POST</code>만 지원</p>
+</li>
+</ul>
+<h3 id="4-HTTP-API를-통한-데이터-전송"><a href="#4-HTTP-API를-통한-데이터-전송" class="headerlink" title="4. HTTP API를 통한 데이터 전송"></a>4. HTTP API를 통한 데이터 전송</h3><ul>
+<li>회원가입, 상품 주문, 데이터 변경</li>
+<li>서버 to 서버, 앱 클라이언트, 웹 클라이언트</li>
+<li>server to server</li>
+<li>앱 클라이언트</li>
+<li>웹 클라이언트. JS를 통한 통신(AJAX)</li>
+<li><code>POST</code>, <code>PUT</code>, <code>PATCH</code> : 메세지 바디를 통해 데이터 전송</li>
+<li><code>GET</code> : 조회, 쿼리파라미터로 데이터 전달</li>
+<li>Content-Type: <code>application/json</code>을 주로 사용 (사실상 표준)<ul>
+<li>TEXT, XML, JSON</li>
+</ul>
+</li>
+</ul>
+<h1 id="API-URI-설계"><a href="#API-URI-설계" class="headerlink" title="API URI 설계"></a>API URI 설계</h1><h2 id="가장-중요한-것은-Resource-식별"><a href="#가장-중요한-것은-Resource-식별" class="headerlink" title="가장 중요한 것은 Resource 식별"></a>가장 중요한 것은 <code>Resource</code> 식별</h2><p>아래 예시에서, 행위를 제외한 <code>회원</code> 만이 Resource! </p>
+<ul>
+<li>회원 등록 &#x2F;members&#x2F;{id}</li>
+<li>회원 목록 조회 &#x2F;members</li>
+<li>회원 수정 &#x2F;members&#x2F;{id}</li>
+<li>회원 삭제 &#x2F;members&#x2F;{id}</li>
+</ul>
+<hr>
+<h3 id="POST-신규-자원-등록-특징"><a href="#POST-신규-자원-등록-특징" class="headerlink" title="POST - 신규 자원 등록 특징"></a>POST - 신규 자원 등록 특징</h3><ul>
+<li><p>클라이언트는 등록될 리소스의 URI를 모른다.</p>
+</li>
+<li><p>콜렉션(collection)</p>
+<ul>
+<li>서버가 관리하는 리소스 디렉토리</li>
+<li>서버가 리소스의 URI를 생성하고 관리</li>
+<li>여기서 컬렉션은 &#x2F;members</li>
+</ul>
+</li>
+<li><p>서버가 새로 등록된 리소스 URI를 생성해준다.</p>
+<ul>
+<li>HTTP&#x2F;1.1 201 Created</li>
+<li>Location: &#x2F;members&#x2F;100</li>
+</ul>
+</li>
+<li><p>클라이언트는 등록될 리소스의 URI를 모른다.</p>
+<ul>
+<li>회원 등록&#x2F;members → POST</li>
+<li>POST &#x2F;members</li>
+</ul>
+</li>
+</ul>
+<h3 id="PUT으로-신규자원-등록-할-때-특징"><a href="#PUT으로-신규자원-등록-할-때-특징" class="headerlink" title="PUT으로 신규자원 등록 할 때 특징"></a>PUT으로 신규자원 등록 할 때 특징</h3><ul>
+<li><p>클라이언트가 리소스 URI를 알고 있어야 한다.</p>
+</li>
+<li><p>파일 등록 &#x2F;files&#x2F;{filename} → PUT</p>
+</li>
+<li><p>PUT &#x2F;files&#x2F;star.jpg</p>
+</li>
+<li><p>클라이언트가 직접 리소스의 URI를 지정한다.</p>
+</li>
+<li><p>스토어(Store)</p>
+<ul>
+<li>클라이언트가 관리하는 리소스 저장소</li>
+<li>클라이언트가 리소스의 URI를 알고 관리</li>
+<li>여기서 스토어는 &#x2F;files</li>
+</ul>
+</li>
+</ul>
+<h3 id="HTML-FORM-사용"><a href="#HTML-FORM-사용" class="headerlink" title="HTML FORM 사용"></a>HTML FORM 사용</h3><ul>
+<li>HTML FORM은 GET, POST만 지원</li>
+<li>GET, POST만 지원하므로 제약이 있음.</li>
+<li>이런 제약을 해결하기 위해 동사로 된 리소스 경로 사용. 이를 <code>Control URI</code> 라고 함.</li>
+<li>POST의 &#x2F;new, &#x2F;edit, &#x2F;delete가 <code>컨트롤 URI</code></li>
+<li>HTTP method로 해결하기 애매한 경우 사용 (HTTP API 포함) → 실무에서 HTTP API로 해결할 수 없는 경우에 사용</li>
+</ul>
+<hr>
+<h1 id="HTTP-Header"><a href="#HTTP-Header" class="headerlink" title="HTTP Header"></a>HTTP Header</h1><h2 id="용도"><a href="#용도" class="headerlink" title="용도"></a>용도</h2><ul>
+<li>HTTP 전송에 필요한 모든 부가정보</li>
+<li>메세지 바디의 내용, 바디 크기, 압축, 인증, 요청 , 클</li>
+</ul>
+<h1 id="일반적인-HTTP-헤더"><a href="#일반적인-HTTP-헤더" class="headerlink" title="일반적인 HTTP 헤더"></a>일반적인 HTTP 헤더</h1><h1 id="표현-Representation"><a href="#표현-Representation" class="headerlink" title="표현(Representation)"></a>표현(Representation)</h1><h3 id="Content-Type-표현-데이터의-형식"><a href="#Content-Type-표현-데이터의-형식" class="headerlink" title="Content-Type: 표현 데이터의 형식"></a>Content-Type: 표현 데이터의 형식</h3><ul>
+<li>미디어 타입, 문자 인코딩<ul>
+<li>text&#x2F;html; charset&#x3D;utf-8</li>
+<li>application&#x2F;json</li>
+<li>image&#x2F;png</li>
+</ul>
+</li>
+</ul>
+<h3 id="Content-Encoding-표현-데이터의-압축-방식"><a href="#Content-Encoding-표현-데이터의-압축-방식" class="headerlink" title="Content-Encoding: 표현 데이터의 압축 방식"></a>Content-Encoding: 표현 데이터의 압축 방식</h3><ul>
+<li>표현 데이터를 압축하기 위해 사용</li>
+<li>데이터를 전달하는 곳에서 압축 후 인코딩 헤더 추가</li>
+<li>데이터를 읽는 쪽에서 인코딩 헤더의 정보로 압축 해제<ul>
+<li>gzip</li>
+<li>deflate</li>
+<li>identity</li>
+</ul>
+</li>
+</ul>
+<h3 id="Content-Language-표현-데이터의-자연-연어"><a href="#Content-Language-표현-데이터의-자연-연어" class="headerlink" title="Content-Language : 표현 데이터의 자연 연어"></a>Content-Language : 표현 데이터의 자연 연어</h3><ul>
+<li>표현 데이터의 자연언어를 표현<ul>
+<li>ko</li>
+<li>en</li>
+<li>en-US</li>
+</ul>
+</li>
+</ul>
+<h3 id="Content-Length-표현-데이터의-길이"><a href="#Content-Length-표현-데이터의-길이" class="headerlink" title="Content-Length : 표현 데이터의 길이"></a>Content-Length : 표현 데이터의 길이</h3><ul>
+<li>byte 단위</li>
+<li>Transfer-Encoding(전송 코딩)을 사용하면 Content-Length를 사용하면 안됨.</li>
+<li>표현 헤더는 전송, 응답 둘다 사용</li>
+</ul>
+<h1 id="협상-Contents-Negotiation"><a href="#협상-Contents-Negotiation" class="headerlink" title="협상 (Contents Negotiation)"></a>협상 (Contents Negotiation)</h1><h3 id="클라이언트가-선호하는-표현-요청"><a href="#클라이언트가-선호하는-표현-요청" class="headerlink" title="클라이언트가 선호하는 표현 요청"></a>클라이언트가 선호하는 표현 요청</h3><ul>
+<li><p><code>Accept</code>: 클라이언트가 선호하는 미디어 타입 전달</p>
+</li>
+<li><p><code>Accept-Charset</code> : Client가 선호하는 문자 인코딩</p>
+</li>
+<li><p><code>Accept-Encoding</code>: 클라이언트가 선호하는 압축 인코딩</p>
+</li>
+<li><p><code>Accept-Language</code>: 클라이언트가 선호하는 자연 언어</p>
+</li>
+<li><p>협상 헤더는 <code>요청</code>시에만 사용</p>
+</li>
+</ul>
+<h3 id="협상과-우선순위"><a href="#협상과-우선순위" class="headerlink" title="협상과 우선순위"></a>협상과 우선순위</h3><ul>
+<li><p>Quality Values(q)</p>
+</li>
+<li><p>0 ~ 1, 클수록 우선 순위</p>
+</li>
+<li><p>생략하면 1</p>
+</li>
+<li><p><code>Accept-Language: ko_KR, ko;q=0.9,en-US;q=0.8,en:q=0.7</code></p>
+</li>
+<li><p>우선 순위 (구체적인 것이 우선한다.)</p>
+</li>
+</ul>
+<ol>
+<li>text&#x2F;plain;format&#x3D;flowed</li>
+<li>text&#x2F;plain</li>
+<li>text&#x2F;*</li>
+</ol>
+<ul>
+<li>구체적인 것을 기준으로 미디어 타입을 맞춘다.<br>Accept: <strong>text&#x2F;</strong>*;q&#x3D;0.3, <strong>text&#x2F;html</strong>;q&#x3D;0.7, <strong>text&#x2F;html;level&#x3D;1</strong>,</li>
+<li><strong>text&#x2F;html;level&#x3D;2</strong>;q&#x3D;0.4, <strong>&#x2F;</strong>*;q&#x3D;0.5</li>
+</ul>
+<h1 id="전송-방식"><a href="#전송-방식" class="headerlink" title="전송 방식"></a>전송 방식</h1><h2 id="1-단순-전송"><a href="#1-단순-전송" class="headerlink" title="1. 단순 전송"></a>1. 단순 전송</h2><p>Content-Length 지정</p>
+<h2 id="2-압축-전속"><a href="#2-압축-전속" class="headerlink" title="2. 압축 전속"></a>2. 압축 전속</h2><p>Content-Encoding:gzip</p>
+<p>Content-length: 521</p>
+<h2 id="3-분할-전송"><a href="#3-분할-전송" class="headerlink" title="3. 분할 전송"></a>3. 분할 전송</h2><p>Transfer-Encoding: chunked</p>
+<p>Content-Length는 예상할 수 없으므로 넣지 않는다.</p>
+<h2 id="4-범위-전송"><a href="#4-범위-전송" class="headerlink" title="4. 범위 전송"></a>4. 범위 전송</h2><p>Range, Content-Range</p>
+<ul>
+<li>Length의 범위를 지정하여 전송</li>
+<li>Content-Range: bytes 1001-2000&#x2F;2000</li>
+</ul>
+<h1 id="일반정보"><a href="#일반정보" class="headerlink" title="일반정보"></a>일반정보</h1><h3 id="From-유저-에이전트의-이메일-정보"><a href="#From-유저-에이전트의-이메일-정보" class="headerlink" title="From: 유저 에이전트의 이메일 정보"></a>From: 유저 에이전트의 이메일 정보</h3><ul>
+<li>일반적으로 잘 사용되지 않음</li>
+</ul>
+<h3 id="Referer-이전-웹-페이지의-주소"><a href="#Referer-이전-웹-페이지의-주소" class="headerlink" title="Referer: 이전 웹 페이지의 주소"></a>Referer: 이전 웹 페이지의 주소</h3><ul>
+<li>Referer를 사용해서 유입 경로 분석 가능</li>
+<li>요청에서 사용</li>
+<li>(참고) referer는 단어 referrer의 오타</li>
+</ul>
+<h3 id="User-Agent-유저-에이전트-애플리케이션-정보-웹-브라우저"><a href="#User-Agent-유저-에이전트-애플리케이션-정보-웹-브라우저" class="headerlink" title="User-Agent : 유저 에이전트 애플리케이션 정보(웹 브라우저)"></a>User-Agent : 유저 에이전트 애플리케이션 정보(웹 브라우저)</h3><ul>
+<li>클라이언트의 애플리케이션 정보(웹 브라우저 정보, 등등)</li>
+<li>통계 정보</li>
+<li>어떤 종류의 브라우저에서 장애가 발생하는지 파악 가능</li>
+</ul>
+<h3 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h3><ul>
+<li><p>요청을 처리하는 ORIGIN 서버의 소프트웨어 정보</p>
+</li>
+<li><p>Server: Apache&#x2F;2.2.22 (Debian)</p>
+</li>
+<li><p>server: nginx</p>
+</li>
+<li><p>응답에서 사용</p>
+</li>
+</ul>
+<h3 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h3><p>메세지가 발생한 날짜와 시간</p>
+<hr>
+<h1 id="특별한-HTTP-헤더"><a href="#특별한-HTTP-헤더" class="headerlink" title="특별한 HTTP 헤더"></a>특별한 HTTP 헤더</h1><h3 id="Host-필수"><a href="#Host-필수" class="headerlink" title="Host(필수)"></a>Host(필수)</h3><p>요청한 호스트 정보(도메인)</p>
+<p>GET &#x2F;hello HTTP&#x2F;1.1</p>
+<p>Host: aaa.com</p>
+<h3 id="Location"><a href="#Location" class="headerlink" title="Location"></a>Location</h3><p>페이지 리다이렉션</p>
+<p>Location 헤더가 있으면, 3xx 응답시에 Location 위치로 자동이동</p>
+<h3 id="Allow"><a href="#Allow" class="headerlink" title="Allow"></a>Allow</h3><p>허용 가능한 HTTP method</p>
+<ul>
+<li><code>405 (Method Not Allowed)</code>에서 응답에 포함해야함.</li>
+</ul>
+<h3 id="Retry-After"><a href="#Retry-After" class="headerlink" title="Retry-After"></a>Retry-After</h3><p>유저 에이전트가 다음 요청을 하기까지 기다려야 하는 시간</p>
+<p>503(Service Unavailable) : 서비스가 언제 부터 사용 가능한지 표시</p>
+<h3 id="인증"><a href="#인증" class="headerlink" title="인증"></a>인증</h3><ul>
+<li><p>Authorization</p>
+<ul>
+<li>클라이언트 인증 정보를 서버에 전달</li>
+</ul>
+</li>
+<li><p>WWW-Authenticate</p>
+<ul>
+<li>리소스 접근시 필요한 인증 방법 정의</li>
+<li>리소스 접근시 필요한 인증 방법 정의</li>
+<li>401 Unauthorized 응답과 함께 사용</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="쿠키-관련"><a href="#쿠키-관련" class="headerlink" title="쿠키 관련"></a>쿠키 관련</h2><p>why cookie?</p>
+<ul>
+<li><p>HTTP는 무상태 프로토콜이니까 …</p>
+</li>
+<li><p>쿠키 미사용 하면, 모든 요청에 사용자 정보 포함? → 보안 문제</p>
+</li>
+<li><p>로그인을 성공하면,</p>
+</li>
+</ul>
+<p>Set-Cookie: user&#x3D;홍길동</p>
+<p>서버는 다음과 같이 쿠키를 Header에 같이 넣어서 보내준다.</p>
+<p>그러면 웹 브라우저는 쿠키 저장소에, 쿠키를 저장 해준다.</p>
+<p>웹 브라우저는 다음 부터 요청을 보낼 때, </p>
+<p>GET &#x2F;welcome HTTP&#x2F;1.1</p>
+<p>Cookie: user&#x3D;홍길동</p>
+<p>다음과 같이 cookie를 같이 보낸다.</p>
+<h2 id="쿠키"><a href="#쿠키" class="headerlink" title="쿠키"></a>쿠키</h2><ul>
+<li><p>사용처</p>
+<ul>
+<li>사용자 로그인 세션 관리</li>
+<li>광고 정보 트래킹</li>
+</ul>
+</li>
+<li><p>쿠키 정보는 항상 서버에 전송됨</p>
+<ul>
+<li>네트워크 트래픽 추가 유발</li>
+<li>최소한의 정보만 사용(세션 id, 인증 토큰)</li>
+<li>서버에 전송하지 않고, 웹 브라우저 내부에 데이털흘 저장하고 싶으면 웹 스토리지 참고</li>
+</ul>
+</li>
+<li><p>주의!</p>
+<ul>
+<li>보안에 민감한 데이터는 저장하면 안된다.</li>
+</ul>
+</li>
+<li><p>생명주기</p>
+<ul>
+<li>Expires, max-age</li>
+<li>Set-Cookie: expires&#x3D;Sat, 26-Dec-2020 04:39:21 GMT<ul>
+<li>만료일이 되면 쿠키 삭제</li>
+</ul>
+</li>
+<li>Set-Cookie: max-age&#x3D;3600 (3600초)<ul>
+<li>0이나 음수를 지정하면 쿠키 삭제</li>
+</ul>
+</li>
+<li>세션 쿠키: 만료 날짜를 생략하면 브라우저 종료시 까지만 유지</li>
+<li>영속 쿠키 : 만료 날짜를 입력하면 해당 날짜까지 유</li>
+</ul>
+</li>
+<li><p>Domain</p>
+</li>
+<li><p>domain&#x3D;example.org</p>
+</li>
+<li><p>명시: 명시한 문서 기준 도메인 + 서브 도메인 포함</p>
+<ul>
+<li>domain&#x3D;example.org를 지정해서 쿠키 생성</li>
+<li><a target="_blank" rel="noopener" href="http://example.org/">example.org</a> + dev.example.org도 쿠키 접근</li>
+</ul>
+</li>
+<li><p>생략 : 현재 문서 기준 도메인만 적용</p>
+<ul>
+<li>example.org에서 쿠키를 생성하고 domain지정을 생략</li>
+</ul>
+</li>
+<li><p>경로 Path</p>
+<ul>
+<li>이 경로를 포함한 하위 경로 페이지만 쿠키 접근</li>
+<li>일반적으로 path&#x3D;&#x2F; 루트로 지정</li>
+</ul>
+<p>  ex)</p>
+<ul>
+<li>path&#x3D;&#x2F;home</li>
+</ul>
+<p>  → &#x2F;home , &#x2F;home&#x2F;level1 가능</p>
+<p>  → &#x2F;home&#x2F;level1&#x2F;level2 불가능</p>
+<ul>
+<li>Secure, HttpOnly, SameSite</li>
+</ul>
+</li>
+<li><p>Secure</p>
+<ul>
+<li>쿠키는 http, https를 구분하지 않고 전송</li>
+<li>Secure를 적용하면 https인 경우에만 전송</li>
+</ul>
+</li>
+<li><p>HttpOnly</p>
+<ul>
+<li>Xss 공격방지</li>
+<li>JS에서 접근 불가</li>
+<li>HTTP 전송에만 사용</li>
+</ul>
+</li>
+<li><p>SameSite</p>
+<ul>
+<li>XSRF 공격방지</li>
+<li>요청 도메인과 쿠키에 설정된 도메인이 같은 경우만 쿠키 전송</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="캐시"><a href="#캐시" class="headerlink" title="캐시"></a>캐시</h1><ul>
+<li><p>캐시 덕분에 캐시 가능 시간동안 네트워크를 사용하지 않아도 된다.</p>
+</li>
+<li><p>비싼 네트워크 사용량을 줄일 수 있다.</p>
+</li>
+<li><p>브라우저 로딩 속도가 매우 빠르다.</p>
+</li>
+<li><p>빠른 사용자 경험</p>
+</li>
+<li><p>cache-control: max-age&#x3D;60</p>
+</li>
+</ul>
+<h3 id="캐시-시간-초과"><a href="#캐시-시간-초과" class="headerlink" title="캐시 시간 초과"></a>캐시 시간 초과</h3><ul>
+<li><p>캐시 유효시간이 초과하면, 서버를 통해 데이터를 다시 조회하고, 캐시를 갱신한다.</p>
+</li>
+<li><p>이때 네트워크 다운로드가 발생한다.</p>
+</li>
+<li><p>캐시 만료후에도 서버에서 데이터를 변경하지 않음.</p>
+</li>
+<li><p>생각 해보면 데이터를 전송하는 대신에 저장해두었던 캐시를 재사용 할 수 있다.</p>
+</li>
+<li><p>클라이언트의 데이터와 서버의 데이터가 같다는 사실을 확인할 수 있는 방법이 필요하다..</p>
+</li>
+</ul>
+<h2 id="검증-헤더와-조건부-요청"><a href="#검증-헤더와-조건부-요청" class="headerlink" title="검증 헤더와 조건부 요청"></a>검증 헤더와 조건부 요청</h2><ul>
+<li>검증헤더<ul>
+<li>캐시 데이터와 서버 데이터가 같은지 검증하는 데이터</li>
+<li>Last-Modified, ETag</li>
+</ul>
+</li>
+</ul>
+<h3 id="검증-헤더-추가"><a href="#검증-헤더-추가" class="headerlink" title="검증 헤더 추가"></a>검증 헤더 추가</h3><ul>
+<li>Last-Modified를 헤더에 추가</li>
+<li>if-modified-since(조건부 요청) : 이후에 데이터가 수정되었으면?<ul>
+<li>서버의 데이터가 미변경(갱신된게 없음)<ul>
+<li>304 Not Modified 응답</li>
+<li>HTTP Body가 없이 Header meta정보만 응답한다.</li>
+</ul>
+</li>
+<li>데이터가 변경<ul>
+<li>200 OK, 모든 데이터 전송(Body 포함)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>결과적으로 네트워크 다운로드가 발생하지만 용량이 적은 헤더 정보만 다운로드 한다.</p>
+<h3 id="단점"><a href="#단점" class="headerlink" title="단점"></a>단점</h3><ul>
+<li>1초 미만 단위로 캐시 조정이 불가능</li>
+<li>날짜 기반의 로직 사용</li>
+<li>데이터를 수정해서 날짜가 다르지만, 같은 데이터를 수정해서 데이터 결과가 똑같은 경우</li>
+<li>서버에서 별도의 캐시 로직을 관리하고 싶은 경우(ex. 스페이스나 주석처럼 크게 영향이 없는 변경에서 캐시를 유지하고 싶은 경우)</li>
+</ul>
+<p>⇒ Etag 사용</p>
+<h3 id="Etag-if-None-Match"><a href="#Etag-if-None-Match" class="headerlink" title="Etag, if-None-Match"></a>Etag, if-None-Match</h3><ul>
+<li>Etag(Entity Tag)</li>
+<li>캐시용 데이터에 임의의 고유한 버전 이름을 달아둠.</li>
+<li>데이터가 변경되면 이 이름을 바꾸어서 변경함(Hash를 다시 생성)</li>
+<li>진짜 단순하게 ETag만 보내서 같으면 유지, 다르면 다시 받기</li>
+<li>캐시 제어 로직을 서버에서 완전히 관리</li>
+<li>클라이언트는 단순히 이 값을 서버에 제공(클라이언트는 캐시 메커니즘을 모른다.)</li>
+</ul>
+<p>헤더 정리</p>
+<ul>
+<li><p>Cache-Control: 캐시 지시어 → 캐시 제어</p>
+<ul>
+<li>Cache-Control:max-age<ul>
+<li>캐시 유효 시간, 초 단위</li>
+</ul>
+</li>
+<li>Cache-Control:no-cache<ul>
+<li>데이터는 캐시해도 되지만, 항 상 origin 서버에 검증하고 사용</li>
+</ul>
+</li>
+<li>Cache-Control:no-store<ul>
+<li>데이터에 민감한 정보가 있으므로 저장하면 안된다. (메모리에서 사용하고 최대한 빨리 삭제)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Pragma: 캐시 제어(하위 호환)</p>
+<ul>
+<li>HTTP 1.0 하위 호환</li>
+</ul>
+</li>
+<li><p>Expires: 캐시 만료일 지정(하위 호환)</p>
+<ul>
+<li>캐시 만료일을 정확한 날짜로 지정<ul>
+<li>HTTP 1.0부터 사용</li>
+<li>현재는 Cache-Control:max-age 권장 → 함께 사용되면, Expires 무시</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>검증헤더 (Validator)</p>
+<ul>
+<li>ETag</li>
+<li>Last-Modified</li>
+</ul>
+</li>
+<li><p>조건부 요청 헤더</p>
+<ul>
+<li>if-Match, if-None-Match: ETag 값 사용</li>
+<li>If-Modified-Since, If-Unmodified-Since: Last-Modified 값 사용</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="프록시-캐시-도입"><a href="#프록시-캐시-도입" class="headerlink" title="프록시 캐시 도입"></a>프록시 캐시 도입</h2><ul>
+<li>Origin Server 직접 접근 ⇒ 생각보다 느리다. ⇒ 프록시 캐시 서버 도입</li>
+</ul>
+<h3 id="Cache-Control-기타"><a href="#Cache-Control-기타" class="headerlink" title="Cache-Control - 기타"></a>Cache-Control - 기타</h3><ul>
+<li>Cache-Control:public<ul>
+<li>응답이 pubilc 캐시에 저장 되어도 됨.</li>
+</ul>
+</li>
+<li>Cache-Control:private<ul>
+<li>응답이 해당 사용자만을 위한 것임, private 캐시에 저장해야 함.</li>
+</ul>
+</li>
+<li>Cache-Control:s-maxage<ul>
+<li>프록시 캐시에만 정용되는 max-age</li>
+</ul>
+</li>
+<li>Age: 60 (HTTP 헤더)<ul>
+<li>origin server에서 응답 후 프록시 캐시 내에 머문 시간</li>
+</ul>
+</li>
+</ul>
+<h2 id="캐시-무효화"><a href="#캐시-무효화" class="headerlink" title="캐시 무효화"></a>캐시 무효화</h2><ul>
+<li><p>확실한 캐시 무효화 응답을 하고 싶을 때는</p>
+</li>
+<li><p>Cache-Control: no-cache, no-store, must-revalidate</p>
+</li>
+<li><p>Cache-Control: no-cache</p>
+<ul>
+<li>캐시 가능, 항상 오리진 서버에 검증</li>
+<li>만약 오리진 서버와의 네트워크가 순간 단절된다면, 옛날 데이터를 보여주면서, 200 OK를 보내는 겨경우가 있다.</li>
+</ul>
+</li>
+<li><p>Cache-Control: no-store</p>
+<ul>
+<li>데이터에 민감한 정보가 있으므로 저장하면 안됨.(메모리에서 사용하고 최대한 빠르게 삭제)</li>
+</ul>
+</li>
+<li><p>Cache-Control: must-revalidate</p>
+<ul>
+<li>캐시 만료 후 최초 조회시 원 서버에 검증</li>
+<li>원 서버 접근 실패의 경우 항상 오류가 발생한다.</li>
+<li>504 Gateway Timeout</li>
+<li>매우 중요한 정보, 돈과 관련된 경우</li>
+</ul>
+</li>
+<li><p>Pragma: no-cache</p>
+<ul>
+<li>HTTP 1.0 하위 호환(하위 버전까지 생각)</li>
+</ul>
+</li>
+</ul>
+<h1 id="HTTP-BODY-메세지-본문"><a href="#HTTP-BODY-메세지-본문" class="headerlink" title="HTTP BODY(메세지 본문)"></a>HTTP BODY(메세지 본문)</h1><ul>
+<li>메시지 본문(message body)을 통해 표현 데이터 전달</li>
+<li>메시지 본문 &#x3D; 페이로드(payload)</li>
+<li><strong>표현</strong>은 요청이나 응답에서 전달할 실제 데이터</li>
+<li><strong>표현 헤더는 표현 데이터</strong>를 해석할 수 있는 정보 제공</li>
+<li>데이터 유형(html, json), 데이터 길이, 압축 정보 등등</li>
+<li>참고: 표현 헤더는 표현 메타데이터와, 페이로드 메시지를 구분해야 하지만, 여기서는 생략</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
