@@ -1,26 +1,25 @@
 {
   "meta": {
-    "title": "DP for your portfolio",
+    "title": "Unantic Challenge",
     "defaultLanguage": "English"
   },
   "aboutMe": {
-    "name": "Min Kyung Kang",
-    "nickName": "nickName!",
+    "name": "Yoonhan Choi",
+    "nickName": "unanchoi",
     "profileImg": "../assets/images/me.gif",
-    "email": "mnk918p@gmail.com",
-    "githubUrl": "https://github.com/ddongule",
-    "blogUrl": "https://mingule.tistory.com/",
+    "email": "unanc2@gmail.com",
+    "githubUrl": "https://github.com/unanchoi",
+    "blogUrl": "https://ntnb.tistory.com/",
     "linkedInUrl": "https://www.linkedin.com/"
   },
 
   "skillSets": [
     {
-      "category": "Front End Skills",
+      "category": "Back End Skills",
       "skills": [
-        { "skill": "Javascript", "level": "5" },
-        { "skill": "HTML/CSS(SASS)", "level": "5" },
-        { "skill": "React", "level": "5" },
-        { "skill": "Typescript", "level": "4" }
+        { "skill": "Java", "level": "5" },
+        { "skill": "Kotlin", "level": "5" },
+        { "skill": "Spring Boot", "level": "5" },
       ]
     },
     {
